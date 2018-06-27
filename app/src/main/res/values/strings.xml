@@ -30,4 +30,5 @@
     <string name="yes">Si</string>
     <string name="no">No</string>
     <string name="confirmation">Seguro desea eliminar?</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

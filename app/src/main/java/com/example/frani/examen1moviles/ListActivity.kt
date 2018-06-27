@@ -14,7 +14,7 @@ class ListActivity : AppCompatActivity() {
 
     lateinit var adaptador: AdaptadorConductor
     lateinit var conductores: ArrayList<Conductor>
-    lateinit var dbHandler: DBConductorHandlerAplicacion
+   // lateinit var dbHandler: DBConductorHandlerAplicacion
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

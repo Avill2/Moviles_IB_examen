@@ -21,14 +21,14 @@ class AdaptadorConductor(private val listaConduct: List<Conductor>) : RecyclerVi
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnCreateContextMenuListener {
 
         var nombre: TextView
-        var fecha: TextView
+        var fechaNacimiento: TextView
         var numero: TextView
         var detalles: Button
         lateinit var conductor: Conductor
 
         init {
             nombre = view.findViewById(R.id.txt_1) as TextView
-            fecha = view.findViewById(R.id.txt_2) as TextView
+            fechaNacimiento = view.findViewById(R.id.txt_2) as TextView
             numero = view.findViewById(R.id.txt_3) as TextView
             detalles = view.findViewById(R.id.btn_1)as Button
             view.setOnCreateContextMenuListener(this)
@@ -51,7 +51,7 @@ class AdaptadorConductor(private val listaConduct: List<Conductor>) : RecyclerVi
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val conductor = listaConduct[position]
         holder.nombre.text = conductor.nombre
-        holder.fecha.text = conductor.fechaNacimiento
+        holder.fechaNacimiento.text = conductor.fechaNacimiento
         holder.numero.text = conductor.numeroAutos.toString()
         holder.conductor = conductor
         holder.detalles.setOnClickListener{

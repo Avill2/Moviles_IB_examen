@@ -3,7 +3,14 @@ package com.example.frani.examen1moviles
 import android.os.Parcel
 import android.os.Parcelable
 
-class Conductor(var id: Int, var nombre: String, var apellido: String, var fechaNacimiento: String, var numeroAutos: Int, var licenciaValida: Int): Parcelable {
+class Conductor(var id: Int,
+                var nombre: String,
+                var apellido: String,
+                var fechaNacimiento: String,
+                var numeroAutos: Int,
+                var licenciaValida: Int,
+                var createdAt: Long,
+                var updatedAt: Long): Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
@@ -11,7 +18,9 @@ class Conductor(var id: Int, var nombre: String, var apellido: String, var fecha
             parcel.readString(),
             parcel.readString(),
             parcel.readInt(),
-            parcel.readInt()) {
+            parcel.readInt(),
+            parcel.readLong(),
+            parcel.readLong()) {
     }
 
     override fun describeContents(): Int {
@@ -25,6 +34,8 @@ class Conductor(var id: Int, var nombre: String, var apellido: String, var fecha
         destino?.writeString(fechaNacimiento)
         destino?.writeInt(numeroAutos)
         destino?.writeInt(licenciaValida)
+        destino?.writeLong(createdAt)
+        destino?.writeLong(updatedAt)
     }
 
     companion object CREATOR : Parcelable.Creator<Conductor> {

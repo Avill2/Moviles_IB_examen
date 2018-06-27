@@ -1,13 +1,72 @@
 package com.example.frani.examen1moviles
 
-import android.content.ContentValues
-import android.content.Context
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
+import android.os.StrictMode
 import android.util.Log
+import com.beust.klaxon.JsonArray
+import com.beust.klaxon.JsonObject
+import com.beust.klaxon.Parser
+import com.github.kittinunf.fuel.httpDelete
+import com.github.kittinunf.fuel.httpGet
+import com.github.kittinunf.fuel.httpPatch
+import com.github.kittinunf.fuel.httpPost
 
 class DataBaseConductor {
-    companion object {
+    fun insertarConductor(conductor: Conductor) {
+        "http://172.31.104.146:1337/Conductor".httpPost(listOf("nombre" to conductor.nombre,
+                "apellido" to conductor.apellido,
+                "fechaNacimiento" to conductor.fechaNacimiento,
+                "numeroAutos" to conductor.numeroAutos,
+                "licenciaValida" to conductor.licenciaValida))
+                .responseString { request, _, result ->
+                    Log.d("http-ejemplo", request.toString())
+                }
+    }
+
+    fun updateConductor(conductor: Conductor) {
+        "http://172.31.104.146:1337/Conductor/${conductor.id}".httpPatch(listOf("nombre" to conductor.nombre,
+                "apellido" to conductor.apellido,
+                "fechaNacimiento" to conductor.fechaNacimiento,
+                "numeroAutos" to conductor.numeroAutos,
+                "licenciaValida" to conductor.licenciaValida))
+                .responseString { request, _, result ->
+                    Log.d("http-ejemplo", request.toString())
+                }
+    }
+
+    fun deleteConductor(id: Int) {
+        "http://172.31.104.146:1337/Conductor/$id".httpDelete()
+                .responseString { request, response, result ->
+                    Log.d("http-ejemplo", request.toString())
+                }
+    }
+
+    fun getListConductor(): ArrayList<Conductor> {
+        val autores: ArrayList<Conductor> = ArrayList()
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+        val (request, response, result) = "http://172.31.104.146:1337/Conductor".httpGet().responseString()
+        val jsonStringAutor = result.get()
+
+        val parser = Parser()
+        val stringBuilder = StringBuilder(jsonStringAutor)
+        val array = parser.parse(stringBuilder) as JsonArray<JsonObject>
+
+        array.forEach {
+            val id = it["id"] as Int
+            val nombre = it["nombre"] as String
+            val apellido = it["apellido"] as String
+            val fechaNacimiento = it["fechaNacimiento"] as String
+            val numeroLibros = it["numeroAutos"] as Int
+            val ecuatoriano = it["licenciaValida"] as Int
+            val conductor = Conductor(id, nombre, apellido, fechaNacimiento, numeroLibros, ecuatoriano, 0, 0)
+            autores.add(conductor)
+        }
+        return autores
+    }
+}
+
+
+    /*companion object {
         val DB_NAME = "conductorAuto"
         val TABLE_NAME = "conductor"
         val NUMERO_ID = "id"
@@ -95,6 +154,5 @@ class DBConductorHandlerAplicacion(context: Context) : SQLiteOpenHelper(context,
         dbReadable.close()
 
         return lista
-    }
+    }*/
 
-}

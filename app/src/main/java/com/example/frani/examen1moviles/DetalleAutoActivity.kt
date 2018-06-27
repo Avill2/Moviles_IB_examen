@@ -14,10 +14,11 @@ class DetalleAutoActivity : AppCompatActivity() {
 
         auto = intent.getParcelableExtra("auto")
 
+        txtShowIsbn.text = auto?.isbn
         txtShowChasis.text = auto?.chasis.toString()
         txtShowNombreMarca.text = auto?.nombre
-        txtShowColorUnos.text = auto?.colorUno.toString()
-        txtShowColorDos.text = auto?.colorDos.toString()
+        txtShowColorUnos.text = auto?.colorUno
+        txtShowColorDos.text = auto?.colorDos
         txtShowModelo.text = auto?.nombreModelo
         txtShowAnio.text = auto?.anio
     }

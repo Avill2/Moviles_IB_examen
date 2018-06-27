@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_create.*
 
 class CreateActivity : AppCompatActivity() {
 
-    lateinit var dbHandler: DBConductorHandlerAplicacion
+    //lateinit var dbHandler: DBConductorHandlerAplicacion
     var conductor: Conductor? = null
     var tipo = false
 
@@ -25,7 +25,7 @@ class CreateActivity : AppCompatActivity() {
             tipo = true
         }
 
-        dbHandler = DBConductorHandlerAplicacion(this)
+        //dbHandler = DBConductorHandlerAplicacion(this)
 
         btnCrearConductor.setOnClickListener{
             v: View? -> crearCondutor()
@@ -50,13 +50,12 @@ class CreateActivity : AppCompatActivity() {
         var licenciaValida = if (switchEcAutor.isChecked) 1 else 0
 
         if (!tipo) {
-            var autor = Conductor(0, nombre, apellido, fecha, numeroAutos, licenciaValida)
-            dbHandler.insertarConductor(autor)
+            var conductor = Conductor(0, nombre, apellido, fecha, numeroAutos, licenciaValida, 0, 0)
+            DataBaseConductor.insertarConductor(conductor)
         } else {
-            var autor = Conductor(conductor?.id!!, nombre, apellido, fecha, numeroAutos, licenciaValida)
-            dbHandler.updateCondcutor(autor)
+            var conductor = Conductor(conductor?.id!!, nombre, apellido, fecha, numeroAutos, licenciaValida, 0, 0)
+            DataBaseConductor.updateConductor(conductor)
         }
-
         irAListView()
     }
 

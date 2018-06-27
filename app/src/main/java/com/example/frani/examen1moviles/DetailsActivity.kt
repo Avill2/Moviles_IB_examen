@@ -16,7 +16,7 @@ class DetailsActivity : AppCompatActivity() {
     var conductor: Conductor? = null
     lateinit var adaptador: AdaptadorAuto
     lateinit var autos: ArrayList<Autoc>
-    lateinit var dbHandler: DBAutoHandlerAplicacion
+   // lateinit var dbHandler: DBAutoHandlerAplicacion
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +30,8 @@ class DetailsActivity : AppCompatActivity() {
         txtShowNumAutos.text = conductor?.numeroAutos.toString()
         txtShowLicValida.text = if(conductor?.licenciaValida == 1) getString(R.string.yes) else getString(R.string.no)
 
-        dbHandler = DBAutoHandlerAplicacion(this)
-        autos = dbHandler.getAutosList(conductor?.id!!)
+       // dbHandler = DBAutoHandlerAplicacion(this)
+        autos = DataBaseAuto.getAutosList(conductor?.id!!)
 
         val layoutManager = LinearLayoutManager(this)
         adaptador = AdaptadorAuto(autos)
@@ -78,7 +78,7 @@ class DetailsActivity : AppCompatActivity() {
                 val builder = AlertDialog.Builder(this)
                 builder.setMessage(R.string.confirmation)
                         .setPositiveButton(R.string.yes, { dialog, which ->
-                            dbHandler.deleteAuto(auto.chasis)
+                            DataBaseAuto.deleteAuto(auto.chasis)
                             finish()
                             startActivity(intent)
                         }
