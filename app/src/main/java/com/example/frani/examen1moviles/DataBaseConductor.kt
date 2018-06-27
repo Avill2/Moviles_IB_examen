@@ -12,7 +12,7 @@ import com.github.kittinunf.fuel.httpPost
 
 class DataBaseConductor {
     fun insertarConductor(conductor: Conductor) {
-        "http://172.31.104.146:1337/Conductor".httpPost(listOf("nombre" to conductor.nombre,
+        "http://172.29.64.230:1337/Conductor".httpPost(listOf("nombre" to conductor.nombre,
                 "apellido" to conductor.apellido,
                 "fechaNacimiento" to conductor.fechaNacimiento,
                 "numeroAutos" to conductor.numeroAutos,
@@ -23,7 +23,7 @@ class DataBaseConductor {
     }
 
     fun updateConductor(conductor: Conductor) {
-        "http://172.31.104.146:1337/Conductor/${conductor.id}".httpPatch(listOf("nombre" to conductor.nombre,
+        "http://172.29.64.230:1337/Conductor/${conductor.id}".httpPatch(listOf("nombre" to conductor.nombre,
                 "apellido" to conductor.apellido,
                 "fechaNacimiento" to conductor.fechaNacimiento,
                 "numeroAutos" to conductor.numeroAutos,
@@ -34,7 +34,7 @@ class DataBaseConductor {
     }
 
     fun deleteConductor(id: Int) {
-        "http://172.31.104.146:1337/Conductor/$id".httpDelete()
+        "http://172.29.64.230:1337/Conductor/$id".httpDelete()
                 .responseString { request, response, result ->
                     Log.d("http-ejemplo", request.toString())
                 }
@@ -44,7 +44,7 @@ class DataBaseConductor {
         val autores: ArrayList<Conductor> = ArrayList()
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
-        val (request, response, result) = "http://172.31.104.146:1337/Conductor".httpGet().responseString()
+            val (request, response, result) = "http://172.29.64.230:1337/Conductor".httpGet().responseString()
         val jsonStringAutor = result.get()
 
         val parser = Parser()

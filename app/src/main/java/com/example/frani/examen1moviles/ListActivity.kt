@@ -14,14 +14,16 @@ class ListActivity : AppCompatActivity() {
 
     lateinit var adaptador: AdaptadorConductor
     lateinit var conductores: ArrayList<Conductor>
+    val db= DataBaseConductor();
    // lateinit var dbHandler: DBConductorHandlerAplicacion
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
-        dbHandler = DBConductorHandlerAplicacion(this)
-        conductores = dbHandler.getConductoresList()
+        //dbHandler = DBConductorHandlerAplicacion(this)
+
+        conductores = db.getListConductor()
 
         val layoutManager = LinearLayoutManager(this)
         adaptador = AdaptadorConductor(conductores)
@@ -57,7 +59,7 @@ class ListActivity : AppCompatActivity() {
                 val builder = AlertDialog.Builder(this)
                 builder.setMessage(R.string.confirmation)
                         .setPositiveButton(R.string.yes, { dialog, which ->
-                            dbHandler.deleteConductor(conductor.id)
+                            db.deleteConductor(conductor.id)
                             finish()
                             startActivity(intent)
                         }

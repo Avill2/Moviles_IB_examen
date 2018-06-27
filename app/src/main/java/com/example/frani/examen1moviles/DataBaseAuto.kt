@@ -19,7 +19,7 @@ class DataBaseAuto {
 companion object {
     fun insertarAuto(auto: Autoc) {
 
-        "http://172.31.104.146:1337/Auto".httpPost(listOf("isbn" to auto.isbn,
+        "http://172.29.64.230:1337/Auto".httpPost(listOf("isbn" to auto.isbn,
                 "nombre" to auto.nombre,
                 "chasis" to auto.chasis,
                 "colorDos" to auto.colorDos,
@@ -36,7 +36,7 @@ companion object {
     }
 
     fun updateAuto(auto: Autoc) {
-        "http://172.31.104.146:1337/Auto/${auto.id}".httpPatch(listOf("isbn" to auto.isbn,
+        "http://172.29.64.230:1337/Auto/${auto.id}".httpPatch(listOf("isbn" to auto.isbn,
                 "nombre" to auto.nombre,
                 "chasis" to auto.chasis,
                 "colorDos" to auto.colorDos,
@@ -51,9 +51,8 @@ companion object {
                 }
     }
 
-
     fun deleteAuto(id: Int) {
-        "http://172.31.104.146:1337/Auto/$id".httpDelete()
+        "http://172.29.64.230:1337/Auto/$id".httpDelete()
                 .responseString { request, response, result ->
                     Log.d("http-ejemplo", request.toString())
                 }
@@ -63,7 +62,7 @@ companion object {
         val autos: ArrayList<Autoc> = ArrayList()
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
-        val (request, response, result) = "http://172.31.104.146:1337/Auto?autorId=$conductorId".httpGet().responseString()
+        val (request, response, result) = "http://172.29.64.230:1337/Auto?autorId=$conductorId".httpGet().responseString()
         val jsonStringLibro = result.get()
 
         val parser = Parser()

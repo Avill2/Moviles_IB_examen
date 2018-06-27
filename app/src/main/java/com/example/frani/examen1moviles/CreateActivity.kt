@@ -48,13 +48,15 @@ class CreateActivity : AppCompatActivity() {
         var fecha = txtFechaConductor.text.toString()
         var numeroAutos = txtNumeroAutos.text.toString().toInt()
         var licenciaValida = if (switchEcAutor.isChecked) 1 else 0
+        val bd= DataBaseConductor();
 
         if (!tipo) {
             var conductor = Conductor(0, nombre, apellido, fecha, numeroAutos, licenciaValida, 0, 0)
-            DataBaseConductor.insertarConductor(conductor)
+            bd.insertarConductor(conductor)
         } else {
             var conductor = Conductor(conductor?.id!!, nombre, apellido, fecha, numeroAutos, licenciaValida, 0, 0)
-            DataBaseConductor.updateConductor(conductor)
+
+            bd.updateConductor(conductor)
         }
         irAListView()
     }
